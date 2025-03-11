@@ -1,13 +1,62 @@
-.footer {
-    background: var(--dark-color);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #ffffff; /* Blanc */
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 1s ease-in-out;
+}
+
+.header menu {
+    display: flex;
+    gap: 20px;
+}
+
+.header menu a {
     color: var(--light-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.header menu a:hover {
+    color: var(--secondary-color);
+}
+
+.topbar{
+    color: whitesmoke;
+    background-color: blue;
+    padding: 2px;
+}
+.topbar a{
+    color: whitesmoke;
+    text-align: center;
+    text-decoration: none;
+    margin-left: 300px;
+}
+/* Logo */
+.logo img {
+    height: 50px;
+}
+.footer {
+    background: black;
+    color: whitesmoke;
     padding: 20px;
     text-align: center;
     margin-top: 50px;
 }
 
 .footer .icons a {
-    color: var(--light-color);
+    color: blue;
     font-size: 20px;
     margin: 0 10px;
 }
