@@ -189,14 +189,14 @@ body {
     margin-left: 600px;
 
 }
-/* CONTENEUR PRINCIPAL */
+
 .sidebar-box {
     position: fixed;
     top: 50%;
-    right: -300px; /* Cachée par défaut */
+    right: -300px; 
     width: 280px;
     height: auto;
-    background: #d9534f; /* Rouge doux */
+    background: blue;
     color: white;
     padding: 15px;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
@@ -205,12 +205,10 @@ body {
     transition: right 0.4s ease-in-out;
 }
 
-/* Quand la sidebar est active */
 .sidebar-box.active {
-    right: 10px; /* Elle s'affiche */
+    right: 10px; 
 }
 
-/* Bouton de fermeture */
 .sidebar-box .close-btn {
     background: #fff;
     color: #d9534f;
@@ -225,18 +223,15 @@ body {
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Contenu */
 .sidebar-box p {
     font-size: 14px;
     margin: 10px 0;
 }
-
-/* Boutons */
 .sidebar-box button {
     width: 100%;
     padding: 10px;
     border: none;
-    background: #0275d8; /* Bleu doux */
+    background: #0275d8; 
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -249,7 +244,6 @@ body {
     background: #0256a3;
 }
 
-/* Réseaux sociaux */
 .sidebar-box .social-icons {
     display: flex;
     justify-content: center;
@@ -265,5 +259,14 @@ body {
 
 .sidebar-box .social-icons img:hover {
     transform: scale(1.1);
+}
+.r{
+    background: linear-gradient(to right, #f92c2c, #f15b25);
+    color: white;
+    padding: 6px 2px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
 }
 
