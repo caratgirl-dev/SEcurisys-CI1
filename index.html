@@ -86,24 +86,25 @@
             </div>
         </div>
     </div>
-    <aside class="sidebar">
-        <button class="subscribe">S'abonner au Newsletter</button>
+    <div class="Accueil">
+        <h1>Bienvenue sur notre site web officiel. </h1>
+        <p>SECURISYS-CI est à votre disposition.</p>
+    </div>
+    <div class="sidebar-box" id="sidebarBox">
+        <a class="close-btn" onclick="toggleSidebar()">×</a>
+        <p>Email: admin@securisys-ci.com</p>
+        <p>Tél: +225 27 22 53 35 72</p>
+        <p>WhatsApp: +225 27 22 53 15 83</p>
+        <a href="#">Nous écrire un mail</a>
+        <a href="#">Nos partenaires</a>
+        <a href="#">Ils nous font confiance</a>
+        <button>Médiathèque</button>
         <div class="social-icons">
             <a href="#"><img src="img/facebook-icone.png" alt="Facebook"></a>
             <a href="#"><img src="img/Youtube-Icon.png" alt="YouTube"></a>
             <a href="#"><img src="img/tiktok.png" alt="TikTok"></a>
             <a href="#"><img src="img/what.png" alt="WhatsApp"></a>
         </div>
-        <p>Email: admin@securisys-ci.com</p>
-        <p>Tél: +225 27 22 53 35 72</p>
-        <p>WhatsApp: +225 27 22 53 15 83</p>
-        <button>Nous écrire un mail</button>
-        <button>Nos partenaires</button>
-        <button>Ils nous font confiance</button>
-        <button>Médiathèque</button>
-    </aside>
-    <div>
-        <p>Bienvenue sur notre site web officiel. SECURISYS-CI est à votre disposition.</p>
     </div>
     <section class="services">
         <div class="service">
@@ -134,29 +135,12 @@
                 accompagnons dans le suivi...</p>
             <a href="#" class="btn">En savoir plus</a>
         </div>
-<<<<<<< HEAD
-        <div class="service video-container">
-            <div>
-                <img src="img/videoframe_0 (1).png" alt="video">
-            </div>
-            <video controls>
-                <source src="medias/v1.mp4" type="video/mp4">
-            </video>
-            <a href="#" class="btn">En savoir plus</a>
-        </div>
-    </section>
-=======
     </section> 
-    <div class="video-container">
-        <div>
-            <img src="img/videoframe_0 (1).png" alt="video">
-        </div>
-        <video controls>
-            <source src="medias/v1.mp4" type="video/mp4">
-        </video>
+    <video autoplay loop class="centered-video">
+        <source src="medias/v1 (1).mp4" type="video/mp4">
+      </video>
         <a href="#" class="btn">En savoir plus</a>
     </div>
->>>>>>> 04830c6c3ab6828dbf6855f0546ed897506fd289
     <footer>
         <footer class="footer">
             <div class="footer-section">
@@ -180,14 +164,18 @@
                 </div>
             </div>
             <div class="footer-section">
-                <h3>S'abonner Aux Newsletters</h3>
-                <button class="footer-btn">S'abonner au Newsletter</button>
+                <a href="#" class="btn">S'abonner au Newsletter</a>
             </div>
             <div class="copyright">
                 © Copyright 2024 Securisys-ci. Tous droits réservés.
             </div>
         </footer>
     </footer>
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebarBox").classList.toggle("active");
+        }
+        </script>        
     <script src="script.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
