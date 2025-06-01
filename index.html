@@ -2,427 +2,858 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ADN - Amour Des Nouveaux</title>
-<link rel="shortcut icon" href="Capture d'écran 2025-05-06 010250.png" type="image/x-icon">
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  <!-- Chart.js -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADN - Gestion Complète</title>
+  <link rel="shortcut icon" href="Capture d'écran 2025-05-06 010250.png" type="image/x-icon">
+  <!-- Bootstrap CSS pour mise en page -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Chart.js pour les graphiques de statistiques -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- html2canvas pour exporter les graphiques -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
   <style>
-    :root {
-      --primary: #d9e48f;
-      --light: #ffffff;
-      --dark: #000000;
-    }
-
+    /* Styles généraux */
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--light);
-      scroll-behavior: smooth;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f7f7;
+      color: #222;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
     }
 
-    header {
-      background: var(--light);
-      border-top: 10px solid var(--primary);
-      padding: 15px 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    /* Animation douce pour le background */
+    @keyframes backgroundShift {
+      0% { background-position: center top; }
+      50% { background-position: center center; }
+      100% { background-position: center top; }
     }
 
-    header img {
-      height: 40px;
-      margin-right: 10px;
+    /* Fleurs animées en fond */
+    .flower {
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      background-image: url('#pinkaesthetic  #pink #cherry #cherryflower.jpg'); /* Remplacez par le chemin de votre image */
+      background-position: center;  
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      animation: backgroundShift 20s ease infinite;
+      pointer-events: none;
+      z-index: -1;
     }
-
-    .nav-link {
-      color: var(--dark);
-      font-weight: 600;
+    .flower:nth-child(1) {
+      top: 10vh;
+      left: 5vw;
+      animation-delay: 0s;
+      width: 120px;
+      height: 120px;
     }
-
-    .nav-link:hover {
-      color: var(--primary);
+    .flower:nth-child(2) {
+      top: 60vh;
+      left: 15vw;
+      animation-delay: 5s;
+      width: 80px;
+      height: 80px;
     }
-
-    section {
-      padding: 60px 0;
-    }
-
-    h2 {
-      color: var(--primary);
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .btn-custom {
-      background-color: var(--primary);
-      color: var(--dark);
-      font-weight: 600;
-      border: none;
-    }
-
-    .btn-custom:hover {
-      background-color: #cfdc79;
-    }
-
-    .form-control, .form-select {
-      border-radius: 10px;
-    }
-
-    .member-card {
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      background: #fff;
-    }
-
-    .member-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
-    footer {
-      background-color: var(--primary);
-      text-align: center;
-      color: var(--dark);
-      padding: 20px;
-      font-weight: 500;
-    }
-
-    .calendar-cell {
-      border: 1px solid #ddd;
-      padding: 10px;
+    .flower:nth-child(3) {
+      top: 30vh;
+      right: 10vw;
+      animation-delay: 10s;
+      width: 100px;
       height: 100px;
     }
 
-    .calendar-header {
-      font-weight: bold;
-      background: #f3f3f3;
+    /* Header et navigation */
+    header {
+      background: #d9e48f;
+      padding: 1rem 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      color: #222;
+    }
+    nav a {
+      margin: 0 0.75rem;
+      font-weight: 600;
+      color: #222;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #4b4b4b;
     }
 
-    .bg-flowers {
-      background-image: url('https://www.transparenttextures.com/patterns/white-diamond.png');
+    /* Section commune */
+    section {
+      background: rgba(255, 255, 255, 0.85);
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem 3rem;
+      border-radius: 25px;
+      box-shadow: 0 0 20px rgba(217, 228, 143, 0.6);
+      backdrop-filter: saturate(180%) blur(15px);
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      color: #4b4b4b;
+      margin-bottom: 2rem;
+      font-size: 2.4rem;
+      letter-spacing: 1.2px;
+    }
+    /* Formulaire */
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: #5a5a5a;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px 15px;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      border: 2px solid #d9e48f;
+      font-size: 1rem;
+      transition: 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    input[type="file"]:focus {
+      border-color: #b8c34b;
+      box-shadow: 0 0 8px rgba(217, 228, 143, 0.7);
+      outline: none;
+    }
+    .btn {
+      cursor: pointer;
+      border-radius: 50px;
+      padding: 12px 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+    }
+    .btn-success {
+      background-color: #d9e48f;
+      color: #222;
+    }
+    .btn-success:hover {
+      background-color: #b8c34b;
+      color: #111;
+    }
+    .btn-danger {
+      background-color: #ff6b6b;
+      color: white;
+    }
+    .btn-danger:hover {
+      background-color: #ff4040;
+    }
+
+    /* Liste et recherche */
+    #search-container {
+      max-width: 1000px;
+      margin: 1rem auto 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .search-input,
+    .filter-select {
+      padding: 10px 15px;
+      margin: 10px 5px 20px 0;
+      border-radius: 25px;
+      border: 2px solid #d9e48f;
+      outline: none;
+      font-size: 1rem;
+      width: 250px;
+      transition: 0.3s ease;
+    }
+    .search-input:focus,
+    .filter-select:focus {
+      border-color: #b8c34b;
+      box-shadow: 0 0 6px rgba(217, 228, 143, 0.6);
+      outline: none;
+    }
+    .member-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(217, 228, 143, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: transform 0.3s ease;
+    }
+    .member-card:hover {
+      transform: scale(1.03);
+    }
+    .member-photo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #d9e48f;
+    }
+    .member-info {
+      flex-grow: 1;
+    }
+    .member-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #444;
+      margin-bottom: 0.3rem;
+    }
+    .member-details {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .member-details .status {
+      font-weight: 700;
+      color: #b8c34b;
+    }
+    .member-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* Section Anniversaires */
+    #anniversary-section {
+      background: rgba(245, 249, 232, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(147, 112, 219, 0.3);
+      margin-top: 20px;
+      animation: backgroundShift 30s ease infinite;
+      padding: 30px;
+      color: #222;
+    }
+    .calendar-nav {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .calendar-nav button {
+      background-color: #d9e48f;
+      border: none;
+      padding: 5px 10px;
+      margin: 0 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #222;
+      transition: background-color 0.3s;
+    }
+    .calendar-nav button:hover {
+      background-color: #b7c45a;
+    }
+    #current-month-year {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    table.calendar {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    table.calendar th,
+    table.calendar td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      height: 40px;
+      vertical-align: middle;
+    }
+    table.calendar td.today {
+      background-color: #d9e48f;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+    table.calendar td.has-birthday {
+      background-color: #b7c45a;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+    #birthday-list {
+      margin-top: 1rem;
+      list-style-type: none;
+      padding-left: 0;
+    }
+    #birthday-list li {
+      background: #d9e48f;
+      margin: 5px 0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: #222;
+    }
+
+    /* Section Statistiques */
+    #stats {
+      margin-top: 20px;
+      padding: 30px;
+      background: rgba(254, 252, 249, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(217, 228, 143, 0.3);
+      color: #222;
+    }
+    .chart-container {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    @media (max-width: 768px) {
+      .member-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #search-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-input,
+      .filter-select {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Fleurs animées en fond -->
+  <div class="flower"></div>
+  <div class="flower"></div>
+  <div class="flower"></div>
 
-<!-- Header -->
-<header class="d-flex justify-content-between align-items-center px-4">
-  <div class="d-flex align-items-center">
-    <img src="Capture d'écran 2025-05-06 010250.png" alt="Logo"/>
-    <h4 class="mb-0 fw-bold">ADN – Amour Des Nouveaux</h4>
-  </div>
-  <nav>
-    <a href="#ajout" class="nav-link">Accueil</a>
-    <a href="#liste" class="nav-link">Liste</a>
-    <a href="#anniversaires" class="nav-link">Anniversaires</a>
-    <a href="#stats" class="nav-link">Statistiques</a>
-  </nav>
-</header>
+  <!-- HEADER ET NAVIGATION -->
+  <header>
+    <h1>🌸 ADN - Gestion Complète 🌸</h1>
+    <nav>
+      <a href="#form-section">Formulaire</a>
+      <a href="#list-section">Liste</a>
+      <a href="#anniversary-section">Anniversaires</a>
+      <a href="#stats">Statistiques</a>
+    </nav>
+  </header>
 
-<!-- Ajouter -->
-<section id="ajout" class="container">
-  <h2>Ajouter un Membre</h2>
-  <form id="form" class="row g-3">
-    <div class="col-md-3"><input type="number" class="form-control" id="numero" placeholder="Numéro de l'enfant" required></div>
-    <div class="col-md-6"><input type="text" class="form-control" id="nom" placeholder="Nom complet" required></div>
-    <div class="col-md-3"><input type="number" class="form-control" id="age" placeholder="Âge" required></div>
-    <div class="col-md-3">
-      <select class="form-select" id="sexe" required>
-        <option value="">Sexe</option>
-        <option>Fille</option>
-        <option>Garçon</option>
-      </select>
-    </div>
-    <div class="col-md-6"><input type="text" class="form-control" id="parents" placeholder="Nom d'un parent" required></div>
-    <div class="col-md-3"><input type="tel" class="form-control" id="telParent" placeholder="Numéro du parent" required></div>
-    <div class="col-md-4"><input type="text" class="form-control" id="classe" placeholder="Classe"></div>
-    <div class="col-md-4"><input type="text" class="form-control" id="ecole" placeholder="École"></div>
-    <div class="col-md-4"><input type="text" class="form-control" id="quartier" placeholder="Quartier"></div>
-    <div class="col-md-6"><input type="date" class="form-control" id="anniversaire" placeholder="Date de naissance" required></div>
-    <div class="col-md-6"><input type="date" class="form-control" id="arrivee" placeholder="Date d'arrivée au département" required></div>
-    <div class="col-md-6">
-      <select class="form-select" id="statut" required>
-        <option value="">Statut</option>
-        <option>Nouveau</option>
-        <option>En Formation</option>
-        <option>Actif</option>
-      </select>
-    </div>
-    <div class="col-md-6"><input type="file" class="form-control" id="photo" accept="image/*"></div>
-    <div class="col-12">
-      <textarea class="form-control" id="notes" rows="2" placeholder="Remarques (facultatif)"></textarea>
-    </div>
-    <div class="text-center">
-      <button type="submit" class="btn btn-custom px-5">Ajouter</button>
-    </div>
-  </form>
-</section>
+  <!-- SECTION FORMULAIRE -->
+  <section id="form-section">
+    <h2>Enregistrer / Modifier un membre</h2>
+    <form id="member-form" enctype="multipart/form-data">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+          <label for="prenoms">Prénoms</label>
+          <input type="text" id="prenoms" name="prenoms" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <label for="contact">Contact WhatsApp</label>
+          <input type="tel" id="contact" name="contact" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+          <label for="sexe">Sexe</label>
+          <select id="sexe" name="sexe" class="form-select" required>
+            <option value="">-- Choisir --</option>
+            <option value="Féminin">Féminin</option>
+            <option value="Masculin">Masculin</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="dateNaissance">Date de naissance</label>
+          <input
+            type="date"
+            id="dateNaissance"
+            name="dateNaissance"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="dateArrivee">Date d'arrivée</label>
+          <input
+            type="date"
+            id="dateArrivee"
+            name="dateArrivee"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="adresse">Adresse</label>
+          <input type="text" id="adresse" name="adresse" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+          <label for="statut">Statut dans le groupe</label>
+          <select id="statut" name="statut" class="form-select" required>
+            <option value="">-- Choisir --</option>
+            <option value="Nouveau">Nouveau</option>
+            <option value="Actif">Actif</option>
+            <option value="En formation">En formation</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="baptise">Baptisé ?</label>
+          <select id="baptise" name="baptise" class="form-select" required>
+            <option value="">-- Choisir --</option>
+            <option value="Oui">Oui</option>
+            <option value="Non">Non</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="nomsParents">Noms des parents</label>
+          <input type="text" id="nomsParents" name="nomsParents" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <label for="contactsParents">Contacts des parents</label>
+          <input type="text" id="contactsParents" name="contactsParents" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <label for="classe">Classe</label>
+          <input type="text" id="classe" name="classe" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <label for="ecole">École</label>
+          <input type="text" id="ecole" name="ecole" class="form-control" />
+        </div>
+        <div class="col-md-12">
+          <label for="photo">Photo (upload d'image)</label>
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            class="form-control"
+            accept="image/*"
+            required
+          />
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <button type="submit" id="btn-submit" class="btn btn-success">Ajouter</button>
+        <button type="reset" id="btn-reset" class="btn btn-danger">Effacer</button>
+      </div>
+    </form>
+  </section>
 
-<!-- Liste -->
-<section id="liste" class="container bg-flowers mt-5 py-5">
-  <h2>Liste des Membres</h2>
-
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <input type="text" id="recherche" class="form-control" placeholder="Rechercher un nom ou un quartier...">
-    </div>
-    <div class="col-md-4">
-      <select id="filtre-statut" class="form-select">
-        <option value="">Filtrer par statut</option>
+  <!-- SECTION LISTE ET RECHERCHE -->
+  <section id="list-section">
+    <h2>Liste des membres</h2>
+    <div id="search-container" class="filter-bar">
+      <input
+        type="text"
+        id="search-name"
+        class="search-input"
+        placeholder="Rechercher par nom..."
+        oninput="filterMembers()"
+      />
+      <select
+        id="search-status"
+        class="filter-select"
+        onchange="filterMembers()"
+      >
+        <option value="">Tous les statuts</option>
         <option value="Nouveau">Nouveau</option>
-        <option value="En Formation">En Formation</option>
         <option value="Actif">Actif</option>
+        <option value="En formation">En formation</option>
       </select>
     </div>
-    <div class="col-md-2 text-end">
-      <button class="btn btn-custom w-100" id="exportPDF"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
+    <div id="members-list"></div>
+  </section>
+
+  <!-- SECTION ANNIVERSAIRES -->
+  <section id="anniversary-section">
+    <h2>🎂 Anniversaires</h2>
+    <div class="calendar-nav">
+      <button id="prev-month">&lt;</button>
+      <span id="current-month-year"></span>
+      <button id="next-month">&gt;</button>
     </div>
-  </div>
+    <table class="calendar" id="calendar">
+      <thead>
+        <tr>
+          <th>Dim</th><th>Lun</th><th>Mar</th><th>Mer</th><th>Jeu</th><th>Ven</th><th>Sam</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <h3>Membres nés ce mois-ci :</h3>
+    <ul id="birthday-list"></ul>
+  </section>
 
-  <div class="row" id="membre-liste">
-    <!-- Membres affichés ici dynamiquement -->
-  </div>
-</section>
-
-<!-- Modale pour Modifier un Membre -->
-<div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="modifierModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modifierModalLabel">Modifier Membre</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+  <!-- SECTION STATISTIQUES -->
+  <section id="stats">
+    <h2>📊 Statistiques</h2>
+    <div class="row">
+      <div class="col-md-6 chart-container">
+        <h5 class="text-center">Répartition par Sexe</h5>
+        <canvas id="chart-sexe"></canvas>
       </div>
-      <div class="modal-body">
-        <form id="formModifier" class="row g-3">
-          <input type="hidden" id="indexModifier">
-          <div class="col-md-3"><input type="number" class="form-control" id="numeroModifier" placeholder="Numéro de l'enfant" required></div>
-          <div class="col-md-6"><input type="text" class="form-control" id="nomModifier" placeholder="Nom complet" required></div>
-          <div class="col-md-3"><input type="number" class="form-control" id="ageModifier" placeholder="Âge" required></div>
-          <div class="col-md-3">
-            <select class="form-select" id="sexeModifier" required>
-              <option value="">Sexe</option>
-              <option>Fille</option>
-              <option>Garçon</option>
-            </select>
-          </div>
-          <div class="col-md-6"><input type="text" class="form-control" id="parentsModifier" placeholder="Nom d'un parent" required></div>
-          <div class="col-md-3"><input type="tel" class="form-control" id="telParentModifier" placeholder="Numéro du parent" required></div>
-          <div class="col-md-4"><input type="text" class="form-control" id="classeModifier" placeholder="Classe"></div>
-          <div class="col-md-4"><input type="text" class="form-control" id="ecoleModifier" placeholder="École"></div>
-          <div class="col-md-4"><input type="text" class="form-control" id="quartierModifier" placeholder="Quartier"></div>
-          <div class="col-md-6"><input type="date" class="form-control" id="anniversaireModifier" required></div>
-          <div class="col-md-6"><input type="date" class="form-control" id="arriveeModifier" required></div>
-          <div class="col-md-6">
-            <select class="form-select" id="statutModifier" required>
-              <option value="">Statut</option>
-              <option>Nouveau</option>
-              <option>En Formation</option>
-              <option>Actif</option>
-            </select>
-          </div>
-          <div class="col-md-6"><input type="file" class="form-control" id="photoModifier" accept="image/*"></div>
-          <div class="col-12">
-            <textarea class="form-control" id="notesModifier" rows="2" placeholder="Remarques (facultatif)"></textarea>
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-custom">Enregistrer les modifications</button>
-          </div>
-        </form>
+      <div class="col-md-6 chart-container">
+        <h5 class="text-center">Répartition par Statut</h5>
+        <canvas id="chart-statut"></canvas>
       </div>
     </div>
-  </div>
-</div>
-<!-- Anniversaires -->
-<section id="anniversaires" class="container bg-light rounded shadow p-4 my-5">
-  <h2>🎂 Anniversaires du Mois</h2>
-  <ul id="liste-anniversaires" class="list-group mt-3"></ul>
-</section>
+  </section>
 
-<!-- Statistiques -->
-<section id="statistiques" class="container bg-light rounded shadow p-4 my-5">
-  <h2>📊 Statistiques</h2>
-  <canvas id="chartSexe" class="my-4"></canvas>
-  <canvas id="chartStatut"></canvas>
-</section>
+  <script>
+    // Clé localStorage
+    const STORAGE_KEY = 'adn_membres';
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-  let membres = JSON.parse(localStorage.getItem("membres")) || [];
+    // Variables globales
+    let membres = [];
+    let indexModif = null;
+    let currentDate = new Date();
 
-  const renderMembres = () => {
-    const liste = document.getElementById("membre-liste");
-    const recherche = document.getElementById("recherche").value.toLowerCase();
-    const filtre = document.getElementById("filtre-statut").value;
-    liste.innerHTML = "";
-    membres.forEach((membre, i) => {
-      if (
-        (membre.nom.toLowerCase().includes(recherche) || membre.quartier.toLowerCase().includes(recherche)) &&
-        (filtre === "" || membre.statut === filtre)
-      ) {
-        const col = document.createElement("div");
-        col.className = "col-md-4 mb-4";
-        col.innerHTML = `
-          <div class="card shadow">
-            <img src="${membre.photo || 'https://via.placeholder.com/150'}" class="card-img-top" style="object-fit: cover; height: 200px;">
-            <div class="card-body">
-              <h5 class="card-title">${membre.nom}</h5>
-              <p class="card-text">
-                Âge: ${membre.age}<br>
-                Sexe: ${membre.sexe}<br>
-                Statut: ${membre.statut}<br>
-                Quartier: ${membre.quartier}
-              </p>
-              <button class="btn btn-sm btn-custom" onclick="ouvrirModification(${i})">Modifier</button>
+    // Lecture image en base64
+    function readImageAsBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject('Erreur de lecture de l’image');
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Charger membres depuis localStorage
+    function loadMembers() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    // Sauvegarder membres dans localStorage
+    function saveMembers(arr) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+
+    // Reset du formulaire
+    function resetForm() {
+      document.getElementById('member-form').reset();
+      indexModif = null;
+      document.getElementById('btn-submit').textContent = 'Ajouter';
+    }
+
+    // Afficher la liste des membres (avec modification et suppression)
+    function displayMembers(list) {
+      const container = document.getElementById('members-list');
+      container.innerHTML = '';
+
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-center">Aucun membre trouvé.</p>';
+        return;
+      }
+
+      list.forEach((m, i) => {
+        const card = document.createElement('div');
+        card.className = 'member-card';
+
+        card.innerHTML = `
+          <img src="${m.photo}" alt="Photo ${m.nom}" class="member-photo" />
+          <div class="member-info">
+            <div class="member-name">${m.nom} ${m.prenoms}</div>
+            <div class="member-details">
+              <div><strong>Email:</strong> ${m.email}</div>
+              <div><strong>WhatsApp:</strong> ${m.contact}</div>
+              <div><strong>Sexe:</strong> ${m.sexe}</div>
+              <div><strong>Naissance:</strong> ${m.dateNaissance}</div>
+              <div><strong>Arrivée:</strong> ${m.dateArrivee}</div>
+              <div><strong>Adresse:</strong> ${m.adresse}</div>
+              <div><strong>Statut:</strong> <span class="status">${m.statut}</span></div>
+              <div><strong>Baptisé:</strong> ${m.baptise}</div>
+              <div><strong>Parents:</strong> ${m.nomsParents}</div>
+              <div><strong>Contacts parents:</strong> ${m.contactsParents}</div>
+              <div><strong>Classe:</strong> ${m.classe}</div>
+              <div><strong>École:</strong> ${m.ecole}</div>
             </div>
           </div>
+          <div class="member-actions">
+            <button class="btn btn-primary btn-sm" onclick="editMember(${i})">Modifier</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteMember(${i})">Supprimer</button>
+          </div>
         `;
-        liste.appendChild(col);
-      }
-    });
-    renderStatistiques();
-    renderAnniversaires();
-  };
-
-  const renderAnniversaires = () => {
-    const ul = document.getElementById("liste-anniversaires");
-    ul.innerHTML = "";
-    const moisActuel = new Date().getMonth();
-    const anniversaires = membres.filter(m =>
-      new Date(m.anniversaire).getMonth() === moisActuel
-    );
-    if (anniversaires.length === 0) {
-      ul.innerHTML = "<li class='list-group-item'>Aucun anniversaire ce mois-ci.</li>";
-    } else {
-      anniversaires.forEach(m =>
-        ul.innerHTML += `<li class="list-group-item">${m.nom} - ${new Date(m.anniversaire).toLocaleDateString()}</li>`
-      );
+        container.appendChild(card);
+      });
     }
-  };
 
-  const renderStatistiques = () => {
-    const ctx1 = document.getElementById("chartSexe").getContext("2d");
-    const ctx2 = document.getElementById("chartStatut").getContext("2d");
-    const filles = membres.filter(m => m.sexe === "Fille").length;
-    const garcons = membres.filter(m => m.sexe === "Garçon").length;
+    // Filtrer membres selon recherche nom et statut
+    function filterMembers() {
+      const nameFilter = document.getElementById('search-name').value.toLowerCase();
+      const statusFilter = document.getElementById('search-status').value;
+      const allMembers = loadMembers();
 
-    new Chart(ctx1, {
-      type: "pie",
-      data: {
-        labels: ["Filles", "Garçons"],
-        datasets: [{ data: [filles, garcons], backgroundColor: ["#FF69B4", "#1E90FF"] }]
-      }
-    });
+      const filtered = allMembers.filter(m => {
+        const fullName = (m.nom + ' ' + m.prenoms).toLowerCase();
+        const matchesName = fullName.includes(nameFilter);
+        const matchesStatus = statusFilter === '' || m.statut === statusFilter;
+        return matchesName && matchesStatus;
+      });
 
-    const statutCounts = {};
-    membres.forEach(m => statutCounts[m.statut] = (statutCounts[m.statut] || 0) + 1);
-    new Chart(ctx2, {
-      type: "bar",
-      data: {
-        labels: Object.keys(statutCounts),
-        datasets: [{
-          label: "Statut des membres",
-          data: Object.values(statutCounts),
-          backgroundColor: "#A0522D"
-        }]
-      }
-    });
-  };
+      displayMembers(filtered);
+      renderStats(filtered); // Mettre à jour graphiques sur liste filtrée
+    }
 
-  document.getElementById("recherche").addEventListener("input", renderMembres);
-  document.getElementById("filtre-statut").addEventListener("change", renderMembres);
+    // Ajouter ou mettre à jour un membre
+    async function submitMember(event) {
+      event.preventDefault();
+      const form = event.target;
 
-  const ouvrirModification = (index) => {
-    const m = membres[index];
-    document.getElementById("indexModifier").value = index;
-    document.getElementById("numeroModifier").value = m.numero;
-    document.getElementById("nomModifier").value = m.nom;
-    document.getElementById("ageModifier").value = m.age;
-    document.getElementById("sexeModifier").value = m.sexe;
-    document.getElementById("parentsModifier").value = m.parents;
-    document.getElementById("telParentModifier").value = m.tel;
-    document.getElementById("classeModifier").value = m.classe;
-    document.getElementById("ecoleModifier").value = m.ecole;
-    document.getElementById("quartierModifier").value = m.quartier;
-    document.getElementById("anniversaireModifier").value = m.anniversaire;
-    document.getElementById("arriveeModifier").value = m.arrivee;
-    document.getElementById("statutModifier").value = m.statut;
-    document.getElementById("notesModifier").value = m.notes || "";
-    new bootstrap.Modal(document.getElementById("modifierModal")).show();
-  };
-
-  document.getElementById("formModifier").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const index = parseInt(document.getElementById("indexModifier").value);
-    const lecteur = new FileReader();
-    const fichier = document.getElementById("photoModifier").files[0];
-    const miseAJour = (photoData = membres[index].photo) => {
-      membres[index] = {
-        numero: document.getElementById("numeroModifier").value,
-        nom: document.getElementById("nomModifier").value,
-        age: document.getElementById("ageModifier").value,
-        sexe: document.getElementById("sexeModifier").value,
-        parents: document.getElementById("parentsModifier").value,
-        tel: document.getElementById("telParentModifier").value,
-        classe: document.getElementById("classeModifier").value,
-        ecole: document.getElementById("ecoleModifier").value,
-        quartier: document.getElementById("quartierModifier").value,
-        anniversaire: document.getElementById("anniversaireModifier").value,
-        arrivee: document.getElementById("arriveeModifier").value,
-        statut: document.getElementById("statutModifier").value,
-        notes: document.getElementById("notesModifier").value,
-        photo: photoData
+      // Construire l’objet membre
+      const data = {
+        nom: form.nom.value.trim(),
+        prenoms: form.prenoms.value.trim(),
+        email: form.email.value.trim(),
+        contact: form.contact.value.trim(),
+        sexe: form.sexe.value,
+        dateNaissance: form.dateNaissance.value,
+        dateArrivee: form.dateArrivee.value,
+        adresse: form.adresse.value.trim(),
+        statut: form.statut.value,
+        baptise: form.baptise.value,
+        nomsParents: form.nomsParents.value.trim(),
+        contactsParents: form.contactsParents.value.trim(),
+        classe: form.classe.value.trim(),
+        ecole: form.ecole.value.trim(),
+        photo: ''
       };
-      localStorage.setItem("membres", JSON.stringify(membres));
-      bootstrap.Modal.getInstance(document.getElementById("modifierModal")).hide();
-      renderMembres();
-    };
-    if (fichier) {
-      lecteur.onload = () => miseAJour(lecteur.result);
-      lecteur.readAsDataURL(fichier);
-    } else {
-      miseAJour();
+
+      // Gérer l’upload de photo
+      const file = form.photo.files[0];
+      if (file) {
+        try {
+          data.photo = await readImageAsBase64(file);
+        } catch (err) {
+          alert(err);
+          return;
+        }
+      } else {
+        alert('Veuillez choisir une photo');
+        return;
+      }
+
+      membres = loadMembers();
+
+      if (indexModif === null) {
+        // Ajout
+        membres.push(data);
+      } else {
+        // Mise à jour
+        membres[indexModif] = data;
+        indexModif = null;
+        document.getElementById('btn-submit').textContent = 'Ajouter';
+      }
+
+      saveMembers(membres);
+      resetForm();
+      filterMembers();
+      renderCalendar(currentDate);
+      alert('Opération réussie !');
     }
-  });
 
-  document.getElementById("exportPDF").addEventListener("click", () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.setFontSize(12);
-    doc.text("Liste des membres ADN", 10, 10);
-    membres.forEach((m, i) => {
-      doc.text(`${i + 1}. ${m.nom} - ${m.sexe} - ${m.age} ans - ${m.statut}`, 10, 20 + i * 8);
+    // Modifier un membre (pré-remplir le formulaire)
+    function editMember(i) {
+      membres = loadMembers();
+      const m = membres[i];
+      indexModif = i;
+
+      document.getElementById('nom').value = m.nom;
+      document.getElementById('prenoms').value = m.prenoms;
+      document.getElementById('email').value = m.email;
+      document.getElementById('contact').value = m.contact;
+      document.getElementById('sexe').value = m.sexe;
+      document.getElementById('dateNaissance').value = m.dateNaissance;
+      document.getElementById('dateArrivee').value = m.dateArrivee;
+      document.getElementById('adresse').value = m.adresse;
+      document.getElementById('statut').value = m.statut;
+      document.getElementById('baptise').value = m.baptise;
+      document.getElementById('nomsParents').value = m.nomsParents;
+      document.getElementById('contactsParents').value = m.contactsParents;
+      document.getElementById('classe').value = m.classe;
+      document.getElementById('ecole').value = m.ecole;
+      // Pour la photo, l’utilisateur devra resélectionner
+      document.getElementById('btn-submit').textContent = 'Mettre à jour';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Supprimer un membre
+    function deleteMember(i) {
+      if (!confirm('Voulez-vous vraiment supprimer ce membre ?')) return;
+      membres = loadMembers();
+      membres.splice(i, 1);
+      saveMembers(membres);
+      filterMembers();
+      renderCalendar(currentDate);
+    }
+
+    /* === SECTION ANNIVERSAIRES === */
+    const calendarBody = document.querySelector('#calendar tbody');
+    const monthYearLabel = document.getElementById('current-month-year');
+    const prevBtn = document.getElementById('prev-month');
+    const nextBtn = document.getElementById('next-month');
+    const birthdayList = document.getElementById('birthday-list');
+
+    function renderCalendar(date) {
+      calendarBody.innerHTML = '';
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      monthYearLabel.textContent = date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      let row = document.createElement('tr');
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('td');
+        row.appendChild(emptyCell);
+      }
+
+      const allMembers = loadMembers();
+      const birthdaysThisMonth = allMembers.filter(m => {
+        if (!m.dateNaissance) return false;
+        const bd = new Date(m.dateNaissance);
+        return bd.getMonth() === month;
+      });
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        if (row.children.length === 7) {
+          calendarBody.appendChild(row);
+          row = document.createElement('tr');
+        }
+        const cell = document.createElement('td');
+        cell.textContent = day;
+
+        const today = new Date();
+        if (
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
+          cell.classList.add('today');
+        }
+
+        const hasBirthday = birthdaysThisMonth.some(m => {
+          const bd = new Date(m.dateNaissance);
+          return bd.getDate() === day;
+        });
+        if (hasBirthday) {
+          cell.classList.add('has-birthday');
+          const names = birthdaysThisMonth
+            .filter(m => new Date(m.dateNaissance).getDate() === day)
+            .map(m => `${m.prenoms} ${m.nom}`)
+            .join(', ');
+          cell.title = `Anniversaire de : ${names}`;
+        }
+
+        row.appendChild(cell);
+      }
+      while (row.children.length < 7) {
+        const emptyCell = document.createElement('td');
+        row.appendChild(emptyCell);
+      }
+      calendarBody.appendChild(row);
+      displayBirthdaysList(birthdaysThisMonth);
+    }
+
+    function displayBirthdaysList(membersWithBirthdays) {
+      birthdayList.innerHTML = '';
+      if (membersWithBirthdays.length === 0) {
+        birthdayList.innerHTML = '<li>Aucun anniversaire ce mois-ci.</li>';
+        return;
+      }
+      membersWithBirthdays.forEach(m => {
+        const li = document.createElement('li');
+        const bdDate = new Date(m.dateNaissance);
+        li.textContent = `${m.prenoms} ${m.nom} — ${bdDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}`;
+        birthdayList.appendChild(li);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar(currentDate);
     });
-    const filles = membres.filter(m => m.sexe === "Fille").length;
-    const garcons = membres.filter(m => m.sexe === "Garçon").length;
-    doc.addPage();
-    doc.text("Statistiques:", 10, 10);
-    doc.text(`Filles: ${filles}`, 10, 20);
-    doc.text(`Garçons: ${garcons}`, 10, 28);
-    Object.entries(membres.reduce((acc, m) => {
-      acc[m.statut] = (acc[m.statut] || 0) + 1;
-      return acc;
-    }, {})).forEach(([statut, count], i) =>
-      doc.text(`${statut}: ${count}`, 10, 40 + i * 8)
-    );
-    doc.save("membres_et_statistiques.pdf");
-  });
+    nextBtn.addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar(currentDate);
+    });
 
-  window.addEventListener("DOMContentLoaded", () => renderMembres());
-</script>
+    /* === SECTION STATISTIQUES === */
+    let chartSexe = null;
+    let chartStatut = null;
+
+    function renderStats(dataForStats = null) {
+      const data = dataForStats || loadMembers();
+      const ctxSexe = document.getElementById('chart-sexe').getContext('2d');
+      const ctxStatut = document.getElementById('chart-statut').getContext('2d');
+
+      const sexeCounts = { Féminin: 0, Masculin: 0 };
+      const statutCounts = { Nouveau: 0, Actif: 0, 'En formation': 0 };
+
+      data.forEach(m => {
+        if (m.sexe in sexeCounts) sexeCounts[m.sexe]++;
+        if (m.statut in statutCounts) statutCounts[m.statut]++;
+      });
+
+      if (chartSexe) chartSexe.destroy();
+      if (chartStatut) chartStatut.destroy();
+
+      chartSexe = new Chart(ctxSexe, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(sexeCounts),
+          datasets: [{
+            data: Object.values(sexeCounts),
+            backgroundColor: ['#ff9ff3', '#36a2eb']
+          }]
+        }
+      });
+
+      chartStatut = new Chart(ctxStatut, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(statutCounts),
+          datasets: [{
+            data: Object.values(statutCounts),
+            backgroundColor: ['#4bc0c0', '#9966ff', '#ffcd56']
+          }]
+        }
+      });
+    }
+
+    // Événements au chargement
+    window.addEventListener('load', () => {
+      membres = loadMembers();
+      filterMembers();
+      renderCalendar(currentDate);
+      renderStats();
+    });
+
+    // Événement formulaire
+    document.getElementById('member-form').addEventListener('submit', submitMember);
+  </script>
 </body>
 </html>
